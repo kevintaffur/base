@@ -2,6 +2,7 @@
 using front.Dtos.Productos;
 using front.Models;
 using front.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +11,15 @@ namespace front.Controllers
     public class ProductoController : Controller
     {
         private readonly IProductoService ProductoService;
+        private readonly AuthService AuthService;
 
-        public ProductoController(IProductoService productoService)
+        public ProductoController(IProductoService productoService, AuthService authService)
         {
             ProductoService = productoService;
+            AuthService = authService;
         }
 
+        [Authorize(Roles = "admin, user")]
         public async Task<ActionResult> Index()
         {
             string token = HttpContext.Session.GetString("token");
@@ -25,10 +29,13 @@ namespace front.Controllers
                 return RedirectToAction("Login", "Auth");
             }
 
+            //string rol = AuthService.ExtraerRol(token);
+
             List<Producto> productos = await ProductoService.ObtenerProductos(token);
             return View(productos);
         }
 
+        [Authorize(Roles = "admin, user")]
         public async Task<ActionResult> Details(int id)
         {
             string token = HttpContext.Session.GetString("token");
@@ -47,6 +54,7 @@ namespace front.Controllers
             return View(producto);
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             string token = HttpContext.Session.GetString("token");
@@ -78,6 +86,7 @@ namespace front.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Edit(int id)
         {
             string token = HttpContext.Session.GetString("token");
@@ -123,6 +132,7 @@ namespace front.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Delete(int id)
         {
             string token = HttpContext.Session.GetString("token");

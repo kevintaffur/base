@@ -17,7 +17,7 @@ namespace api.Controllers
             Service = service;
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin, user")]
         [HttpGet]
         public async Task<IActionResult> ObtenerTodos()
         {
@@ -88,7 +88,7 @@ namespace api.Controllers
             }
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin, user")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> ObtenerPorId([FromRoute] int id)
         {

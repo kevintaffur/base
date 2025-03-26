@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using front.Dtos.Auth;
 using front.Utils.Responses;
 using Newtonsoft.Json;
@@ -41,5 +43,24 @@ namespace front.Services
             HttpResponseMessage response = await _httpClient.PostAsync($"{_apiKey}/auth/signup", content);
             return response.IsSuccessStatusCode;
         }
+
+        //public string ExtraerRol(string token)
+        //{
+        //    try
+        //    {
+        //        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+        //        JwtSecurityToken jwtToken = tokenHandler.ReadJwtToken(token);
+
+        //        IEnumerable<Claim> claims = jwtToken.Claims;
+
+        //        string rol = claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
+
+        //        return rol;
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
     }
 }

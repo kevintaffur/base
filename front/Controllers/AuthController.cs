@@ -15,6 +15,13 @@ namespace front.Controllers
 
         public ActionResult Login()
         {
+            string token = HttpContext.Session.GetString("token");
+
+            if (token != null)
+            {
+                return RedirectToAction("Index", "Producto");
+            }
+
             return View();
         }
 
@@ -31,8 +38,21 @@ namespace front.Controllers
             return RedirectToAction("Index", "Producto");
         }
 
+        public async Task<ActionResult> Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Auth");
+        }
+
         public ActionResult Signup()
         {
+            string token = HttpContext.Session.GetString("token");
+
+            if (token != null)
+            {
+                return RedirectToAction("Index", "Producto");
+            }
+
             return View();
         }
 
