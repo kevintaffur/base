@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kevin\\source\\repos\\prueba\\front\\front.csproj": {}
+    "C:\\Users\\Kevin\\source\\repos\\abc\\base\\front\\front.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kevin\\source\\repos\\prueba\\front\\front.csproj": {
+    "C:\\Users\\Kevin\\source\\repos\\abc\\base\\front\\front.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kevin\\source\\repos\\prueba\\front\\front.csproj",
+        "projectUniqueName": "C:\\Users\\Kevin\\source\\repos\\abc\\base\\front\\front.csproj",
         "projectName": "front",
-        "projectPath": "C:\\Users\\Kevin\\source\\repos\\prueba\\front\\front.csproj",
+        "projectPath": "C:\\Users\\Kevin\\source\\repos\\abc\\base\\front\\front.csproj",
         "packagesPath": "C:\\Users\\Kevin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kevin\\source\\repos\\prueba\\front\\obj\\",
+        "outputPath": "C:\\Users\\Kevin\\source\\repos\\abc\\base\\front\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

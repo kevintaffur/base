@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7H9RISQRrxY=",
+  "dgSpecHash": "Mr89FdV1LLM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kevin\\source\\repos\\prueba\\front\\front.csproj",
+  "projectFilePath": "C:\\Users\\Kevin\\source\\repos\\abc\\base\\front\\front.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kevin\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\Kevin\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

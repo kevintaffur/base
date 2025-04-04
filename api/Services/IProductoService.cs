@@ -4,9 +4,9 @@ namespace api.Services
 {
     public interface IProductoService
     {
-        Task<List<ProductoShowDto>> ObtenerProductos();
-        Task<ProductoShowDto> ObtenerProductoPorId(int id);
-        Task<ProductoShowDto> CrearProducto(ProductoCreacionDto productoCreacionDto);
-        Task<ProductoShowDto> ModificarProducto(int id, ProductoModificacionDto productoModificacionDto);
+        Task<List<ProductoShowDto>> ObtenerTodos();
+        Task<ProductoShowDto> ObtenerPorId(int id);
+        Task<ProductoShowDto> Crear(ProductoCreacionDto entidadCreacionDto);
+        Task<ProductoShowDto> Modificar(int id, ProductoModificacionDto entidadModificacionDto);
     }
 }

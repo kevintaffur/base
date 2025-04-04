@@ -15,97 +15,97 @@ namespace api.Services
             Repo = repo;
         }
 
-        public async Task<ProductoShowDto> CrearProducto(ProductoCreacionDto productoCreacionDto)
+        public async Task<ProductoShowDto> Crear(ProductoCreacionDto entidadCreacionDto)
         {
-            Producto producto = new Producto
+            Producto entidad = new Producto
             {
-                Nombre = productoCreacionDto.Nombre,
-                Descripcion = productoCreacionDto.Descripcion,
-                Estado = productoCreacionDto.Estado,
-                UsuarioId = productoCreacionDto.UsuarioId
+                Nombre = entidadCreacionDto.Nombre,
+                Descripcion = entidadCreacionDto.Descripcion,
+                Estado = entidadCreacionDto.Estado,
+                UsuarioId = entidadCreacionDto.UsuarioId
             };
 
-            return MapToShow(await Repo.CrearProducto(producto));
+            return MapToShow(await Repo.Crear(entidad));
         }
 
-        public async Task<ProductoShowDto> ModificarProducto(int id, ProductoModificacionDto productoModificacionDto)
+        public async Task<ProductoShowDto> Modificar(int id, ProductoModificacionDto entidadModificacionDto)
         {
-            Producto productoExistente = await Repo.ObtenerProductoPorId(id);
+            Producto entidadExistente = await Repo.ObtenerPorId(id);
 
-            if (productoExistente == null)
+            if (entidadExistente == null)
             {
                 return null;
             }
 
-            if (productoModificacionDto.Nombre != null)
+            if (entidadModificacionDto.Nombre != null)
             {
-                productoExistente.Nombre = productoModificacionDto.Nombre;
+                entidadExistente.Nombre = entidadModificacionDto.Nombre;
             }
-            if (productoModificacionDto.Descripcion != null)
+            if (entidadModificacionDto.Descripcion != null)
             {
-                productoExistente.Descripcion = productoModificacionDto.Descripcion;
+                entidadExistente.Descripcion = entidadModificacionDto.Descripcion;
             }
-            if (productoModificacionDto.Estado != null)
+            if (entidadModificacionDto.Estado != null)
             {
-                productoExistente.Estado = productoModificacionDto.Estado;
+                entidadExistente.Estado = entidadModificacionDto.Estado;
             }
-            if (productoModificacionDto.UsuarioId != null)
+            if (entidadModificacionDto.UsuarioId != null)
             {
-                productoExistente.UsuarioId = (int)productoModificacionDto.UsuarioId;
+                entidadExistente.UsuarioId = (int)entidadModificacionDto.UsuarioId;
             }
 
-            return MapToShow(await Repo.ModificarProducto(productoExistente));
+            return MapToShow(await Repo.Modificar(entidadExistente));
         }
 
-        public async Task<ProductoShowDto> ObtenerProductoPorId(int id)
+        public async Task<ProductoShowDto> ObtenerPorId(int id)
         {
-            Producto producto = await Repo.ObtenerProductoPorId(id);
+            Producto entidad = await Repo.ObtenerPorId(id);
 
-            if (producto == null)
+            if (entidad == null)
             {
                 return null;
             }
 
-            return MapToShow(producto);
+            return MapToShow(entidad);
         }
 
-        public async Task<List<ProductoShowDto>> ObtenerProductos()
+        public async Task<List<ProductoShowDto>> ObtenerTodos()
         {
-            List<ProductoShowDto> productos = new List<ProductoShowDto>();
+            List<ProductoShowDto> entidades = new List<ProductoShowDto>();
 
-            foreach (var p in await Repo.ObtenerProductos())
+            foreach (var p in await Repo.ObtenerTodos())
             {
-                productos.Add(MapToShow(p));
+                entidades.Add(MapToShow(p));
             }
-            return productos;
+            return entidades;
         }
 
-        private ProductoShowDto MapToShow(Producto producto)
+        private ProductoShowDto MapToShow(Producto entidad)
         {
-            if (producto == null)
+            if (entidad == null)
             {
                 return new ProductoShowDto();
             }
 
             RolShowDto rol = new RolShowDto
             {
-                Id = producto.Usuario.Rol.Id,
-                Nombre = producto.Usuario.Rol.Nombre,
+                Id = entidad.Usuario.Rol.Id,
+                Nombre = entidad.Usuario.Rol.Nombre,
             };
 
             UsuarioShowDto usuario = new UsuarioShowDto
             {
-                Id = producto.Usuario.Id,
+                Id = entidad.Usuario.Id,
                 Rol = rol,
-                Username = producto.Usuario.Username
+                Username = entidad.Usuario.Username
             };
 
             return new ProductoShowDto
             {
-                Nombre = producto.Nombre,
-                Descripcion = producto.Descripcion,
-                Estado = producto.Estado,
-                Id = producto.Id,
+                Nombre = entidad.Nombre,
+                Descripcion = entidad.Descripcion,
+                Estado = entidad.Estado,
+                Id = entidad.Id,
                 Usuario = usuario
             };
         }

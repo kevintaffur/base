@@ -31,7 +31,7 @@ namespace front.Controllers
 
             //string rol = AuthService.ExtraerRol(token);
 
-            List<Producto> productos = await ProductoService.ObtenerProductos(token);
+            List<Producto> productos = await ProductoService.ObtenerTodos(token);
             return View(productos);
         }
 
@@ -44,7 +44,7 @@ namespace front.Controllers
             {
                 return RedirectToAction("Login", "Auth");
             }
-            Producto producto = await ProductoService.ObtenerProductoPorId(id, token);
+            Producto producto = await ProductoService.ObtenerPorId(id, token);
 
             if (producto == null)
             {
@@ -68,13 +68,13 @@ namespace front.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(ProductoCreacionDto productoCreacionDto)
+        public async Task<ActionResult> Create(ProductoCreacionDto entidadCreacionDto)
         {
             try
             {
                 string token = HttpContext.Session.GetString("token");
 
-                if (!await ProductoService.CrearProducto(productoCreacionDto, token))
+                if (!await ProductoService.Crear(entidadCreacionDto, token))
                 {
                     return View();
                 }
@@ -96,31 +96,31 @@ namespace front.Controllers
                 return RedirectToAction("Login", "Auth");
             }
 
-            Producto producto = await ProductoService.ObtenerProductoPorId(id, token);
-            if (producto == null)
+            Producto entidad = await ProductoService.ObtenerPorId(id, token);
+            if (entidad == null)
             {
                 return RedirectToAction("Index", "Producto");
             }
 
-            ProductoModificacionDto productoMod = new ProductoModificacionDto
+            ProductoModificacionDto entidadMod = new ProductoModificacionDto
             {
-                Id = producto.Id,
-                Nombre = producto.Nombre,
-                Descripcion = producto.Descripcion,
-                Estado = producto.Estado,
-                UsuarioId = producto.Usuario.Id
+                Id = entidad.Id,
+                Nombre = entidad.Nombre,
+                Descripcion = entidad.Descripcion,
+                Estado = entidad.Estado,
+                UsuarioId = entidad.Usuario.Id
             };
 
-            return View(productoMod);
+            return View(entidadMod);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(ProductoModificacionDto productoModificacionDto)
+        public async Task<ActionResult> Edit(ProductoModificacionDto entidadModificacionDto)
         {
             try
             {
                 string token = HttpContext.Session.GetString("token");
-                if (!await ProductoService.ModificarProducto(productoModificacionDto.Id, productoModificacionDto, token))
+                if (!await ProductoService.Modificar(entidadModificacionDto.Id, entidadModificacionDto, token))
                 {
                     return View();
                 }
@@ -142,14 +142,14 @@ namespace front.Controllers
                 return RedirectToAction("Login", "Auth");
             }
 
-            Producto producto = await ProductoService.ObtenerProductoPorId(id, token);
+            Producto entidad = await ProductoService.ObtenerPorId(id, token);
 
-            if (producto == null)
+            if (entidad == null)
             {
                 return RedirectToAction("Index", "Producto");
             }
 
-            return View(producto);
+            return View(entidad);
         }
 
         [HttpPost]
@@ -158,23 +158,23 @@ namespace front.Controllers
             try
             {
                 string token = HttpContext.Session.GetString("token");
-                Producto producto = await ProductoService.ObtenerProductoPorId(id, token);
+                Producto entidad = await ProductoService.ObtenerPorId(id, token);
 
-                if (producto == null)
+                if (entidad == null)
                 {
                     return RedirectToAction("Index", "Producto");
                 }
 
-                ProductoModificacionDto pr = new ProductoModificacionDto
+                ProductoModificacionDto e = new ProductoModificacionDto
                 {
-                    Descripcion = producto.Descripcion,
+                    Descripcion = entidad.Descripcion,
                     Estado = "N",
-                    Id = producto.Id,
-                    Nombre = producto.Nombre,
-                    UsuarioId = producto.Usuario.Id
+                    Id = entidad.Id,
+                    Nombre = entidad.Nombre,
+                    UsuarioId = entidad.Usuario.Id
                 };
 
-                if (!await ProductoService.ModificarProducto(id, pr, token))
+                if (!await ProductoService.Modificar(id, e, token))
                 {
                     return View();
                 }

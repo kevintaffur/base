@@ -25,13 +25,13 @@ namespace api.Controllers
             {
                 Status = 200,
                 Message = "Productos obtenidos satisfactoriamente.",
-                Content = await Service.ObtenerProductos()
+                Content = await Service.ObtenerTodos()
             });
         }
 
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public async Task<IActionResult> Crear([FromBody] ProductoCreacionDto producto)
+        public async Task<IActionResult> Crear([FromBody] ProductoCreacionDto entidadCreacionDto)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace api.Controllers
                 {
                     Status = 201,
                     Message = "Producto creado satisfactoriamente",
-                    Content = await Service.CrearProducto(producto)
+                    Content = await Service.Crear(entidadCreacionDto)
                 });
             }
             catch
@@ -55,13 +55,13 @@ namespace api.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> Modificar([FromRoute] int id, [FromBody] ProductoModificacionDto producto)
+        public async Task<IActionResult> Modificar([FromRoute] int id, [FromBody] ProductoModificacionDto entidadModificacionDto)
         {
             try
             {
-                ProductoShowDto productoExistente = await Service.ModificarProducto(id, producto);
+                ProductoShowDto entidadExistente = await Service.Modificar(id, entidadModificacionDto);
 
-                if (productoExistente == null)
+                if (entidadExistente == null)
                 {
                     return NotFound(new Response
                     {
@@ -74,7 +74,7 @@ namespace api.Controllers
                 {
                     Status = 200,
                     Message = "Producto modificado de forma satisfactoria.",
-                    Content = productoExistente
+                    Content = entidadExistente
                 });
             }
             catch
@@ -94,9 +94,9 @@ namespace api.Controllers
         {
             try
             {
-                ProductoShowDto producto = await Service.ObtenerProductoPorId(id);
+                ProductoShowDto entidad = await Service.ObtenerPorId(id);
 
-                if (producto == null)
+                if (entidad == null)
                 {
                     return NotFound(new Response
                     {
@@ -109,7 +109,7 @@ namespace api.Controllers
                 {
                     Status = 200,
                     Message = "Producto obtenido.",
-                    Content = producto
+                    Content = entidad
                 });
             }
             catch

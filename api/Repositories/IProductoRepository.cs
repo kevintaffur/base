@@ -4,9 +4,9 @@ namespace api.Repositories
 {
     public interface IProductoRepository
     {
-        Task<List<Producto>> ObtenerProductos();
-        Task<Producto> ObtenerProductoPorId(int id);
-        Task<Producto> CrearProducto(Producto producto);
-        Task<Producto> ModificarProducto(Producto producto);
+        Task<List<Producto>> ObtenerTodos();
+        Task<Producto> ObtenerPorId(int id);
+        Task<Producto> Crear(Producto entidad);
+        Task<Producto> Modificar(Producto entidad);
     }
 }

@@ -12,30 +12,30 @@ namespace api.Repositories
             Context = context;
         }
 
-        public async Task<Producto> CrearProducto(Producto producto)
+        public async Task<Producto> Crear(Producto entidad)
         {
-            await Context.Productos.AddAsync(producto);
+            await Context.Productos.AddAsync(entidad);
             await Context.SaveChangesAsync();
 
-            Producto pr = await ObtenerProductoPorId(producto.Id);
-            return pr;
+            Producto e = await ObtenerPorId(entidad.Id);
+            return e;
         }
 
-        public async Task<Producto> ModificarProducto(Producto producto)
+        public async Task<Producto> Modificar(Producto entidad)
         {
-            Context.Entry(producto).State = EntityState.Modified;
+            Context.Entry(entidad).State = EntityState.Modified;
             await Context.SaveChangesAsync();
 
-            Producto pr = await ObtenerProductoPorId(producto.Id);
-            return pr;
+            Producto e = await ObtenerPorId(entidad.Id);
+            return e;
         }
 
-        public async Task<Producto> ObtenerProductoPorId(int id)
+        public async Task<Producto> ObtenerPorId(int id)
         {
             return await Context.Productos.Include(p => p.Usuario).ThenInclude(u => u.Rol).Where(p => !p.Estado.Equals("N")).FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<List<Producto>> ObtenerProductos()
+        public async Task<List<Producto>> ObtenerTodos()
         {
             return await Context.Productos.Include(p => p.Usuario).ThenInclude(u => u.Rol).Where(p => !p.Estado.Equals("N")).ToListAsync();
         }

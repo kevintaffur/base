@@ -19,9 +19,9 @@ namespace front.Services
             BaseUrl = Environment.GetEnvironmentVariable("ApiBase") + "/productos";
         }
 
-        public async Task<bool> CrearProducto(ProductoCreacionDto productoCreacionDto, string token)
+        public async Task<bool> Crear(ProductoCreacionDto entidadCreacionDto, string token)
         {
-            string json = JsonConvert.SerializeObject(productoCreacionDto);
+            string json = JsonConvert.SerializeObject(entidadCreacionDto);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -30,9 +30,9 @@ namespace front.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> ModificarProducto(int id, ProductoModificacionDto productoModificacionDto, string token)
+        public async Task<bool> Modificar(int id, ProductoModificacionDto entidadModificacionDto, string token)
         {
-            string json = JsonConvert.SerializeObject(productoModificacionDto);
+            string json = JsonConvert.SerializeObject(entidadModificacionDto);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -41,7 +41,7 @@ namespace front.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<Producto> ObtenerProductoPorId(int id, string token)
+        public async Task<Producto> ObtenerPorId(int id, string token)
         {
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpResponseMessage response = await Client.GetAsync($"{BaseUrl}/{id}");
@@ -56,7 +56,7 @@ namespace front.Services
             return productoResponse.Content;
         }
 
-        public async Task<List<Producto>> ObtenerProductos(string token)
+        public async Task<List<Producto>> ObtenerTodos(string token)
         {
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpResponseMessage response = await Client.GetAsync(BaseUrl);
